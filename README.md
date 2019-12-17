@@ -10,6 +10,7 @@ Essas instruções fornecerão uma cópia do projeto em execução na sua máqui
 ### Pré-requisitos
 
 ```
+Composer
 Acesso API Pagar.me
 PHP 7.1
 MySql
@@ -18,6 +19,10 @@ Apache
 
 ### Instalando
 
+```
+Instale a biblioteca utilizando o comando
+composer require pagarme/pagarme-php
+```
 ```
 Primeiramente o código fonte deverá ser descompactado dentro do servidor apache.
 O banco de dados deverá ser importado ao mysql.
