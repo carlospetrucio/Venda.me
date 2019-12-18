@@ -114,7 +114,7 @@ include('admin/includes/functions.php');
 			<button type="submit" class="btn btn-success" name="registro_btn">Criar conta</button>
 		</div>
 		<p>
-			Already a member? <a href="login.php">Sign in</a>
+			Já é membro? <a href="login.php">Sign in</a>
 		</p>
 	</form>
 
