@@ -1,6 +1,10 @@
 <?php
 require('../../vendor/autoload.php');
 include('includes/functions.php');
+
+//este arquivo quando executado realiza a captura das transações que foram autorizadas, muda para paid.
+//recomendo fortemente a remoção em caso de uso e configuração do postbak.php 
+//Informações de como implementar o postback podem ser localizadas na documentação oficial da API Pagar.me (version 2018)
 ?>
 
 <!doctype html>
