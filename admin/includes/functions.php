@@ -128,7 +128,7 @@
 	  // Caso não ocorra falhas, enviar dados ao MySql
 	  if (count($errors) == 0){
 			//
-			$pagarme = new PagarMe\Client('ak_test_S7OFSaPfJqzHTKaS4SwspesIb1zBOS');
+			$pagarme = new PagarMe\Client('SUA-API');
 			$recipient = $pagarme->recipients()->create([
 			  'external_id' => $external_id,
 			  'anticipatable_volume_percentage' => '100',
@@ -170,7 +170,7 @@
 		// editar valores
 		 function ExibeDashboard(){
 			 global $db, $errors;
-			 $pagarme = new PagarMe\Client('ak_test_S7OFSaPfJqzHTKaS4SwspesIb1zBOS');
+			 $pagarme = new PagarMe\Client('SUA-API');
 			 $transactions = $pagarme->balances()->get();
 			 foreach($transactions as $waiting_funds => $amount){
 			 if ($waiting_funds == "waiting_funds") {
@@ -207,7 +207,7 @@
 			//Exibe vendedores cadastrados e informa se o vendedor esta como recebedor em pagar.me ou não
 			 function ExibeClientes(){
 				 global $db, $errors;
-				 $pagarme = new PagarMe\Client('ak_test_S7OFSaPfJqzHTKaS4SwspesIb1zBOS');
+				 $pagarme = new PagarMe\Client('SUA-API');
 				// acima a conexão
 				 $query = "SELECT * FROM usuarios";
 				 $resultado_clientes = mysqli_query($db, $query);
@@ -239,7 +239,7 @@
 		//Exibe vendedores cadastrados e informa se o vendedor esta como recebedor em pagar.me ou não
 		 function ExibeVendedores(){
 			 global $db, $errors;
-			 $pagarme = new PagarMe\Client('ak_test_S7OFSaPfJqzHTKaS4SwspesIb1zBOS');
+			 $pagarme = new PagarMe\Client('SUA-API');
 			// acima a conexão
 			 $query = "SELECT * FROM vendedores";
 			 $resultado_vendedores = mysqli_query($db, $query);
@@ -286,7 +286,7 @@
 				 function ExibeTransacoesLista(){
 					 global $db, $errors;
 					 $statuspreciso = 'authorized';
-					 $pagarme = new PagarMe\Client('ak_test_S7OFSaPfJqzHTKaS4SwspesIb1zBOS');
+					 $pagarme = new PagarMe\Client('SUA-API');
 					 $transactions = $pagarme->transactions()->getList();
 						 foreach($transactions as $object => $transaction){
 							 if ($transaction->status == $statuspreciso) {
@@ -344,19 +344,6 @@
 				               'freeInstallments':3,
 				               'defaultInstallment':5,
 				               'headerText':'Título'
-											 'split_rules' => [
-    [
-      'id' => 'sr_cj41w9m4d01ta316d02edaqav',
-      'amount' => '3000',
-      'recipient_id' => 're_cj2wd5ul500d4946do7qtjrvk'
-    ],
-    [
-      'id' => 'sr_cj41w9m4e01tb316dl2f2veyz',
-      'amount' => '3153',
-      'recipient_id' => 're_cj2wd5u2600fecw6eytgcbkd0',
-      'charge_processing_fee' => 'true'
-    ]
-  ]
 				             };
 				             checkout.open(params);
 				         });
