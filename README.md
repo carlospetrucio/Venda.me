@@ -25,7 +25,7 @@ composer require pagarme/pagarme-php
 ```
 ```
 Primeiramente o código fonte deverá ser descompactado dentro do servidor apache.
-O banco de dados deverá ser importado ao mysql.
+O banco de dados deverá ser importado ao mysql. (Solicite em carlospetruciofreitasbarbosa@gmail.com)
 ```
 
 ```
