@@ -1,3 +1,4 @@
+![VendaMe logo](https://raw.githubusercontent.com/carlospetrucio/Venda.me/master/admin/includes/img/home_logo.png)
 # VendaMe
 
 Sistema vendas com integração Pagar.me
