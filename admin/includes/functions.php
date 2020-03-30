@@ -1,34 +1,33 @@
 <?php
-	ini_set('default_charset', 'UTF-8'); //esta linha antes de criar a variavel conexao
+	ini_set('default_charset', 'UTF-8'); 
 	date_default_timezone_set('America/Sao_Paulo');
 	session_start();
-	// inicia a conexão com mysql
-	$db = mysqli_connect('localhost', 'root', '', 'vendame');
-	// declarando as variaveis
+	$db = mysqli_connect('SERVERDB', 'USERNAMEDB', 'PASSWORDDB', 'NAMEDB');
+
 	$nome_usuario = "";
 	$email_usuario    = "";
 	$errors   = array();
-	//Ao clicar no botão de cadastro de vendedor executa function
+
 	if (isset($_POST['btn_cadastrarproduto'])) {
 		CadastrarProduto();
 	}
-	//Ao clicar no botão de cadastro de vendedor executa function
+
 	if (isset($_POST['btn_cadastrarvendedor'])) {
 		CadastrarVendedor();
 	}
-	//botão de ação para registro de usuários no geral.
+
 	if (isset($_POST['registro_btn'])) {
 		registro();
 	}
-	//botão de ação para login para vendedores e admin
+
 	if (isset($_POST['login_btn_vendedores'])) {
 		loginVendedores();
 	}
-	//botão de ação para login para usuários
+
 	if (isset($_POST['login_btn'])) {
 		login();
 	}
-	//function de pesquisa de pesquisas
+
 	 function CadastrarProduto(){
 		 global $db, $errors;
 		 $nomedoproduto = e($_POST['nomedoproduto']);
@@ -36,7 +35,7 @@
 		 $vendidopor =  e($_POST['vendidopor']);
 		 $valorproduto =  e($_POST['valorproduto']);
 		 $adjetivodoproduto  = e($_POST['adjetivodoproduto']);
-		 // Validação de formulário: verifica se os dados estão ok
+
 		 if (empty($nomedoproduto)) {
 			 array_push($errors, "Você precisa informar o nome do produto");
 		 }
@@ -49,17 +48,14 @@
 		 if(isset($_FILES['arquivo']['name']) && $_FILES["arquivo"]["error"] == 0) {
 		 	$arquivo_tmp = $_FILES['arquivo']['tmp_name'];
 		 	$nome = $_FILES['arquivo']['name'];
-		 	// Pega a extensao
+
 		 	$extensao = strrchr($nome, '.');
-		 	// Converte a extensao para mimusculo
+
 		 	$extensao = strtolower($extensao);
-		 	// Somente imagens, .jpg;.jpeg;.gif;.png
-		 	// Aqui eu enfilero as extesões permitidas e separo por ';'
-		 	// Isso server apenas para eu poder pesquisar dentro desta String
+
 		 	if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
 		 	{
-		 		// Cria um nome único para esta imagem
-		 		// Evita que duplique as imagens no servidor.
+
 		 		$novoNome = md5(microtime()) . '.' . $extensao;
 		 		// Concatena a pasta com o nome
 		 		$destino = 'imagens/' . $novoNome;
@@ -75,7 +71,7 @@
 	 		}
 	function CadastrarVendedor(){
 	  global $db, $errors;
-	  // Recebe todos os valores do formulário por meio de POST
+
 		$legal_name =  e($_POST['legal_name']);
 	  $legal_name =  e($_POST['legal_name']);
 	  $document_number =  e($_POST['document_number']);
@@ -90,8 +86,7 @@
 	  $transfer_interval =  e($_POST['transfer_interval']);
 		$external_id_count = 1234569123812310238;
 		$external_id = md5($conta*$agencia+$external_id_count);
-	  //soma os valores de conta, agencia e digitos verificadores, para então criar um hash MD5 e enviar para external_id
-	  // Validação de formulário: verifica se os dados estão ok
+
 	  if (empty($legal_name)) {
 	    array_push($errors, "Você precisa informar o nome do vendedor");
 	  }
@@ -125,7 +120,7 @@
 	  if (empty($transfer_interval)) {
 	    array_push($errors, "Você precisa selecionar a frequência de transferências");
 	  }
-	  // Caso não ocorra falhas, enviar dados ao MySql
+
 	  if (count($errors) == 0){
 			//
 			$pagarme = new PagarMe\Client('SUA-API');
@@ -157,8 +152,7 @@
 	      header('location: vendedores-cadastrados.php');
 	    }
 	  }
-		//Exibe dashboard na home com resumo de saldo da conta pagar.me
-		// editar valores
+
 		function formatar($input)
 		{
 		  if(strlen($input)<=3)
@@ -167,7 +161,7 @@
 		  $formatted_input = formatar($length).",".substr($input,-3);
 		  return $formatted_input;
 		}
-		// editar valores
+
 		 function ExibeDashboard(){
 			 global $db, $errors;
 			 $pagarme = new PagarMe\Client('SUA-API');
@@ -203,8 +197,8 @@
 						</div></div></div></div>";
 					}
 				}
-			} //Encerra function ExibeDashboard
-			//Exibe vendedores cadastrados e informa se o vendedor esta como recebedor em pagar.me ou não
+			} 
+
 			 function ExibeClientes(){
 				 global $db, $errors;
 				 $pagarme = new PagarMe\Client('SUA-API');
@@ -236,7 +230,7 @@
 					 echo "<td>".$row_clientes['external_id_usuario']."</td>";
 				 }
 			 }
-		//Exibe vendedores cadastrados e informa se o vendedor esta como recebedor em pagar.me ou não
+
 		 function ExibeVendedores(){
 			 global $db, $errors;
 			 $pagarme = new PagarMe\Client('SUA-API');
@@ -263,8 +257,7 @@
 	 			};
 	 			}
 		  }
-		} // fim da ExibeVendedores
-		//Exibe os produtos cadastrados no banco de dados em formato de tabela
+		} 
 		 function ExibeProdutosLista(){
 		   global $db, $errors;
 		   $query = "SELECT * FROM produtos";
@@ -281,8 +274,8 @@
 			 echo "<button type='submit' class='btn btn-danger' name='remover-produto' id='remover-produto'>Remover</button>";
 			 echo "</td>";
 		   }
-		    } // fim da ExibeProdutosLista
-				//Exibe as transações e simula a captura da mesma.
+		    } 
+
 				 function ExibeTransacoesLista(){
 					 global $db, $errors;
 					 $statuspreciso = 'authorized';
@@ -305,8 +298,8 @@
 
 						};
 					}
-				 } // fim da ExibeTransacoesLista
-		//Exibe os produtos cadastrados no banco de dados
+				 } 
+
 		 function ExibeProdutos(){
 			 global $db, $errors;
 			 $query = "SELECT * FROM produtos
